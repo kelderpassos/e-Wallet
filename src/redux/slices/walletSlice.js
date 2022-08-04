@@ -6,7 +6,6 @@ const URL = 'https://economia.awesomeapi.com.br/json/all';
 const initialState = {
   currencies: [],
   expenses: [],
-  updatedExpenses: [],
   isLoading: true,
 };
 
@@ -25,17 +24,17 @@ export const getExchangeRates = createAsyncThunk(
 
 export const getUpdatedExchangeRates = createAsyncThunk(
   'wallet/getUpdatedExchangeRates',
-  async (expenses) => {
+  async (state) => {
     try {
       const request = await fetch(URL);
       const response = await request.json();
       const updatedExpenses = {
-        ...expenses,
+        ...state,
         exchangeRates: response,
       };
       return updatedExpenses;
     } catch (error) {
-      throw new Error(error);
+      throw new Error('API request rejected');
     }
   },
 );
@@ -59,24 +58,23 @@ const walletSlice = createSlice({
     },
     [getExchangeRates.fulfilled]: (state, action) => {
       state.currencies = Object.keys(action.payload).filter(selectedCurrencies);
-      // state.expenses = [...state.expenses, action.payload];
       state.isLoading = false;
     },
     [getExchangeRates.rejected]: (state) => {
       state.isLoading = false;
     },
-    // [getUpdatedExchangeRates.pending]: (state) => {
-    //   state.isLoading = true;
-    // },
-    // [getUpdatedExchangeRates.fulfilled]: (state, action) => {
-    //   console.log(action.payload);
-    //   console.log('caí aqui');
-    //   state.updatedExpenses = [...state.updatedExpenses, action.payload];
-    //   state.isLoading = false;
-    // },
-    // [getUpdatedExchangeRates.rejected]: (state) => {
-    //   state.isLoading = false;
-    // },
+    [getUpdatedExchangeRates.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [getUpdatedExchangeRates.fulfilled]: (state, action) => {
+      console.log(action.payload);
+      console.log('caí aqui');
+      state.expenses = [...state.expenses, action.payload];
+      state.isLoading = false;
+    },
+    [getUpdatedExchangeRates.rejected]: (state) => {
+      state.isLoading = false;
+    },
   },
 });
 

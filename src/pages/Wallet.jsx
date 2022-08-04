@@ -28,7 +28,7 @@ function Wallet() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(saveExpense(state));
+    // dispatch(saveExpense(state));
     dispatch(getUpdatedExchangeRates(state));
     setState(() => ({ value: '', description: '' }));
   };
