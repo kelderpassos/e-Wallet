@@ -31,18 +31,18 @@ function Table() {
               <td>{Number(expense.value).toFixed(2)}</td>
               <td>
                 {
-                // Number(expense.exchangeRates[expense.currency].ask).toFixed(2)
+                Number(expense.exchangeRates[expense.currency].ask).toFixed(2)
               }
               </td>
               <td>
                 {
-                // expense.exchangeRates[expense.currency].name
+                expense.exchangeRates[expense.currency].name
               }
               </td>
               <td>
                 {
-                // (expense.exchangeRates[expense.currency].ask * Number(expense.value))
-                //   .toFixed(2)
+                (expense.exchangeRates[expense.currency].ask * Number(expense.value))
+                  .toFixed(2)
               }
               </td>
               <td>Real</td>
