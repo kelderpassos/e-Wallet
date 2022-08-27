@@ -6,7 +6,9 @@ const URL = 'https://economia.awesomeapi.com.br/json/all';
 const initialState = {
   currencies: [],
   expenses: [],
+  expenseId: 0,
   isLoading: true,
+  isEdit: false,
 };
 
 export const getExchangeRates = createAsyncThunk(
@@ -19,7 +21,7 @@ export const getExchangeRates = createAsyncThunk(
     } catch (error) {
       throw new Error('API request rejected');
     }
-  },
+  }
 );
 
 export const getUpdatedExchangeRates = createAsyncThunk(
@@ -36,7 +38,7 @@ export const getUpdatedExchangeRates = createAsyncThunk(
     } catch (error) {
       throw new Error('API request rejected');
     }
-  },
+  }
 );
 
 const selectedCurrencies = (currencies) => currencies !== 'USDT';
@@ -45,12 +47,21 @@ const walletSlice = createSlice({
   name: 'wallet',
   initialState,
   reducers: {
-    saveExpense: (state, action) => {
-      console.log('saveExpense');
-      state.expenses.push(action.payload);
+    // saveExpense: (state, action) => {
+    //   console.log('saveExpense');
+    //   state.expenses.push(action.payload);
+    // },
+    updateExpense: (state, action) => {
+      state.expenses = [...state.expenses];
+      state.expenseId = action.payload;
+      state.isEdit = true;
     },
-    updateExpense: (state, action) => {},
-    deleteExpense: (state, action) => {},
+    deleteExpense: (state, action) => {
+      state.expenses = state.expenses.filter(({ id }) => id !== Number(action.payload));
+    },
+    submitUpdates: (state, action) => {
+      state.expenses = [...state.expenses, action.payload];
+    },
   },
   extraReducers: {
     [getExchangeRates.pending]: (state) => {
@@ -67,8 +78,6 @@ const walletSlice = createSlice({
       state.isLoading = true;
     },
     [getUpdatedExchangeRates.fulfilled]: (state, action) => {
-      console.log(action.payload);
-      console.log('caí aqui');
       state.expenses = [...state.expenses, action.payload];
       state.isLoading = false;
     },

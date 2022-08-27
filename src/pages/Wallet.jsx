@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
-import { getExchangeRates, getUpdatedExchangeRates, saveExpense } from '../redux/slices/walletSlice';
+import { getExchangeRates, getUpdatedExchangeRates } from '../redux/slices/walletSlice';
 import Header from '../components/Header';
 import Table from '../components/Table';
 import Loading from '../components/Loading';
@@ -28,7 +28,6 @@ function Wallet() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // dispatch(saveExpense(state));
     dispatch(getUpdatedExchangeRates(state));
     setState(() => ({ value: '', description: '' }));
   };
@@ -36,7 +35,6 @@ function Wallet() {
   return (
     <div>
       <Header />
-      <div>na carteira</div>
       <form onSubmit={handleSubmit}>
         <label htmlFor="value">
           {' '}
