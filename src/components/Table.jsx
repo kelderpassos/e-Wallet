@@ -5,7 +5,7 @@ import { deleteExpense, updateExpense } from '../redux/slices/walletSlice';
 function Table() {
   const { expenses } = useSelector(({ wallet }) => wallet);
   const dispatch = useDispatch();
-
+  // console.log(expenses, 'table');
   return (
     <div>
       <table>

@@ -21,7 +21,7 @@ export const getExchangeRates = createAsyncThunk(
     } catch (error) {
       throw new Error('API request rejected');
     }
-  }
+  },
 );
 
 export const getUpdatedExchangeRates = createAsyncThunk(
@@ -38,7 +38,7 @@ export const getUpdatedExchangeRates = createAsyncThunk(
     } catch (error) {
       throw new Error('API request rejected');
     }
-  }
+  },
 );
 
 const selectedCurrencies = (currencies) => currencies !== 'USDT';
@@ -47,10 +47,6 @@ const walletSlice = createSlice({
   name: 'wallet',
   initialState,
   reducers: {
-    // saveExpense: (state, action) => {
-    //   console.log('saveExpense');
-    //   state.expenses.push(action.payload);
-    // },
     updateExpense: (state, action) => {
       state.expenses = [...state.expenses];
       state.expenseId = action.payload;
@@ -60,7 +56,8 @@ const walletSlice = createSlice({
       state.expenses = state.expenses.filter(({ id }) => id !== Number(action.payload));
     },
     submitUpdates: (state, action) => {
-      state.expenses = [...state.expenses, action.payload];
+      state.expenses = [...action.payload];
+      state.isEdit = false;
     },
   },
   extraReducers: {
@@ -87,6 +84,5 @@ const walletSlice = createSlice({
   },
 });
 
-export const { saveExpense, updateExpense, deleteExpense } =
-  walletSlice.actions;
+export const { saveExpense, updateExpense, deleteExpense, submitUpdates } = walletSlice.actions;
 export default walletSlice.reducer;

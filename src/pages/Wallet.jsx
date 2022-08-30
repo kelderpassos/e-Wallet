@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
-import { getExchangeRates, getUpdatedExchangeRates } from '../redux/slices/walletSlice';
+import { getExchangeRates, getUpdatedExchangeRates, submitUpdates } from '../redux/slices/walletSlice';
 import Header from '../components/Header';
 import Table from '../components/Table';
 import Loading from '../components/Loading';
 
+const initialState = {
+  id: '',
+  value: '',
+  description: '',
+  currency: 'USD',
+  method: 'Cash',
+  category: 'Food',
+};
+
 function Wallet() {
-  const [state, setState] = useState({
-    id: '',
-    value: '',
-    description: '',
-    currency: 'USD',
-    method: 'Cash',
-    category: 'Food',
-  });
-  const { currencies, isLoading } = useSelector(({ wallet }) => wallet);
+  const [state, setState] = useState(initialState);
+  const {
+    currencies, isLoading, expenses, isEdit, expenseId,
+  } = useSelector(({ wallet }) => wallet);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -29,7 +33,18 @@ function Wallet() {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(getUpdatedExchangeRates(state));
-    setState(() => ({ value: '', description: '' }));
+    setState(() => ({...initialState, value: '', description: '' }));
+  };
+
+  const handleEdit = (e) => {
+    e.preventDefault();
+    const editions = expenses.map((prevExpense) => {
+      if (expenseId === prevExpense.id) {
+        return { ...state, exchangeRates: prevExpense.exchangeRates };
+      }
+      return prevExpense;
+    });
+    dispatch(submitUpdates(editions));
   };
 
   return (
@@ -96,7 +111,22 @@ function Wallet() {
           </select>
         </label>
       </form>
-      <button type="submit" name="saveExp" onClick={handleSubmit}>Save Expense</button>
+      { !isEdit ? (
+        <button
+          type="button"
+          name="expensesBtn"
+          onClick={handleSubmit}
+        >
+          Adicionar despesa
+        </button>
+      ) : (
+        <button
+          type="button"
+          onClick={handleEdit}
+        >
+          Editar despesa
+        </button>
+      )}
       {isLoading ? <Loading />
         : (
           <main>
