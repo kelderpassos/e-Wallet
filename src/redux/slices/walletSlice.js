@@ -53,7 +53,7 @@ const walletSlice = createSlice({
       state.isEdit = true;
     },
     deleteExpense: (state, action) => {
-      state.expenses = state.expenses.filter(({ id }) => id !== Number(action.payload));
+      state.expenses = state.expenses.filter(({ id }) => id !== action.payload);
     },
     submitUpdates: (state, action) => {
       state.expenses = [...action.payload];

@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 function Header() {
   const { email } = useSelector((store) => store.user);
   const { expenses } = useSelector((store) => store.wallet);
-  // console.log(expenses, 'header');
+
   const totalExpenses = expenses.reduce((acc, expense) => {
     const { value, exchangeRates, currency } = expense;
     const rateValues = Object.values(exchangeRates);
@@ -15,7 +15,7 @@ function Header() {
   }, 0);
 
   return (
-    <header>
+    <header className="flex">
       <p>{email}</p>
       <p>{totalExpenses.toFixed(2)}</p>
       <p>BRL</p>
