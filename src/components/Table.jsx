@@ -7,67 +7,66 @@ function Table() {
   const dispatch = useDispatch();
 
   return (
-    <div>
-      <table>
-        <colgroup span="4" />
-        <tbody>
-          <tr>
-            <th>Description</th>
-            <th>Tag</th>
-            <th>Payment Method</th>
-            <th>Value</th>
-            <th>Currency</th>
-            <th>Selected Currency</th>
-            <th>Converted Value</th>
-            <th>Conversion Currency</th>
-            <th>Edit/Remove</th>
-          </tr>
-        </tbody>
-        {expenses.map((expense) => (
-          <tbody key={expense.id}>
-            <tr>
-              <td>{expense.description}</td>
-              <td>{expense.tag}</td>
-              <td>{expense.method}</td>
-              <td>{Number(expense.value).toFixed(2)}</td>
-              <td>
-                {
+    <table className="text-center w-full">
+      <thead className="">
+        <tr className="">
+          <th className="w-[100px]">Description</th>
+          <th className="w-[100px]">Tag</th>
+          <th className="w-[100px]">Payment Method</th>
+          <th className="w-[100px]">Value</th>
+          <th className="w-[100px]">Currency</th>
+          <th className="w-[100px]">Selected Currency</th>
+          <th className="w-[100px]">Converted Value</th>
+          <th className="w-[100px]">Conversion Currency</th>
+          <th className="w-[100px]">Edit/Remove</th>
+        </tr>
+      </thead>
+      {expenses.map((expense) => (
+        <tbody className="" key={expense.id}>
+          <tr className="">
+            <td className="">{expense.description}</td>
+            <td className="">{expense.tag}</td>
+            <td className="">{expense.method}</td>
+            <td className="">{Number(expense.value).toFixed(2)}</td>
+            <td className="">
+              {
                 Number(expense.exchangeRates[expense.currency].ask).toFixed(2)
               }
-              </td>
-              <td>
-                {
+            </td>
+            <td className="">
+              {
                 expense.exchangeRates[expense.currency].name
               }
-              </td>
-              <td>
-                {
+            </td>
+            <td className="">
+              {
                 (expense.exchangeRates[expense.currency].ask * Number(expense.value))
                   .toFixed(2)
               }
-              </td>
-              <td>Real</td>
-              <td>
-                <button
-                  type="button"
-                  onClick={() => dispatch(updateExpense(expense.id))}
-                  data-testid="edit-btn"
-                >
-                  Edit
-                </button>
-                <button
-                  type="button"
-                  onClick={() => dispatch(deleteExpense(expense.id))}
-                  data-testid="delete-btn"
-                >
-                  Remove
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        ))}
-      </table>
-    </div>
+            </td>
+            <td className="">Real</td>
+            <td className="">
+              <button
+                className=""
+                type="button"
+                onClick={() => dispatch(updateExpense(expense.id))}
+                data-testid="edit-btn"
+              >
+                Edit
+              </button>
+              <button
+                className=""
+                type="button"
+                onClick={() => dispatch(deleteExpense(expense.id))}
+                data-testid="delete-btn"
+              >
+                Remove
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      ))}
+    </table>
   );
 }
 

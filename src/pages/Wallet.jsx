@@ -49,93 +49,96 @@ function Wallet() {
   };
 
   return (
-    <div className="bg-[#292d33] h-screen">
-      <div className="bg-[#0a0a0a] text-[#c39f03]">
-        <Header />
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="value">
-            {' '}
-            Value
-            <input
-              name="value"
-              type="text"
-              placeholder="amount"
-              value={expense.value}
-              onChange={handleInput}
-            />
-          </label>
-          <label htmlFor="description">
-            {' '}
-            Description
-            <input
-              name="description"
-              type="text"
-              placeholder="product"
-              value={expense.description}
-              onChange={handleInput}
-            />
-          </label>
-          <label htmlFor="currency">
-            Currency:
-            <select
-              value={expense.currency}
-              name="currency"
-              onChange={handleInput}
-            >
-              {currencies.map((currency) => (
-                <option key={uuidv4()}>{ currency }</option>
-              ))}
-            </select>
-          </label>
-          <label htmlFor="method">
-            Payment Method
-            <select
-              name="method"
-              onChange={handleInput}
-            >
-              <option>Cash</option>
-              <option>Credit card</option>
-              <option>Debit card</option>
-            </select>
-          </label>
-          <label htmlFor="category">
-            Category
-            <select
-              name="category"
-              type="dropdown"
-              onChange={handleInput}
-            >
-              <option>Food</option>
-              <option>Leisure</option>
-              <option>Work</option>
-              <option>Transportation</option>
-              <option>Health</option>
-            </select>
-          </label>
-        </form>
+    <div className=" bg-[#0a0a0a] h-screen">
+      <Header />
+      <form className="flex bg-[#f5f5f5] justify-between " onSubmit={handleSubmit}>
+        <label htmlFor="value">
+          {' '}
+          Value
+          <input
+            className="ml-2 md:w-32"
+            name="value"
+            type="number"
+            placeholder="amount"
+            value={expense.value}
+            onChange={handleInput}
+          />
+        </label>
+        <label htmlFor="description">
+          {' '}
+          Description
+          <input
+            className="ml-2 md:w-32"
+            name="description"
+            type="text"
+            placeholder="product"
+            value={expense.description}
+            onChange={handleInput}
+          />
+        </label>
+        <label className="ml-2" htmlFor="currency">
+          Currency:
+          <select
+            className="ml-2 md:w-20 text-[#0a0a0a]"
+            value={expense.currency}
+            name="currency"
+            onChange={handleInput}
+          >
+            {currencies.map((currency) => (
+              <option key={uuidv4()}>{ currency }</option>
+            ))}
+          </select>
+        </label>
+        <label className="ml-2" htmlFor="method">
+          Payment Method
+          <select
+            className="ml-2 md:w-20 text-[#0a0a0a]"
+            name="method"
+            onChange={handleInput}
+          >
+            <option>Cash</option>
+            <option>Credit card</option>
+            <option>Debit card</option>
+          </select>
+        </label>
+        <label className="ml-2" htmlFor="category">
+          Category
+          <select
+            className="ml-2 md:w-[8rem] text-[#0a0a0a] md:text-sm"
+            name="category"
+            type="dropdown"
+            onChange={handleInput}
+          >
+            <option>Food</option>
+            <option>Leisure</option>
+            <option>Work</option>
+            <option>Transportation</option>
+            <option>Health</option>
+          </select>
+        </label>
         { !isEdit ? (
           <button
             type="button"
             name="expensesBtn"
             onClick={handleSubmit}
           >
-            Adicionar despesa
+            Add Expense
           </button>
         ) : (
           <button
             type="button"
             onClick={handleEdit}
           >
-            Editar despesa
+            Edit Expense
           </button>
         )}
-        {isLoading ? <Loading />
-          : (
-            <main>
-              <Table />
-            </main>
-          )}
-      </div>
+      </form>
+      {isLoading ? <Loading />
+        : (
+          <main className="bg-[#1f2530] h-screen mt-5">
+            <Table />
+          </main>
+        )}
     </div>
   );
 }
