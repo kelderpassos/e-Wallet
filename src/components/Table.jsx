@@ -7,8 +7,8 @@ function Table() {
   const dispatch = useDispatch();
 
   return (
-    <table className="text-center w-full">
-      <thead className="">
+    <table className="text-center w-full text-[#e7ebef] ">
+      <thead className="h-[3.5rem] -mt-5">
         <tr className="">
           <th className="w-[100px]">Description</th>
           <th className="w-[100px]">Tag</th>
@@ -23,7 +23,8 @@ function Table() {
       </thead>
       {expenses.map((expense) => (
         <tbody className="" key={expense.id}>
-          <tr className="">
+          <div className="border-none mt-3" />
+          <tr className="border-2 border-[#FFD700] h-[4rem] ">
             <td className="">{expense.description}</td>
             <td className="">{expense.tag}</td>
             <td className="">{expense.method}</td>
@@ -35,7 +36,7 @@ function Table() {
             </td>
             <td className="">
               {
-                expense.exchangeRates[expense.currency].name
+                expense.exchangeRates[expense.currency].code
               }
             </td>
             <td className="">
@@ -47,7 +48,7 @@ function Table() {
             <td className="">Real</td>
             <td className="">
               <button
-                className=""
+                className="bg-white hover:bg-[#FFD700] rounded-lg lg:p-2 px-[23px] text-black text-[13px]"
                 type="button"
                 onClick={() => dispatch(updateExpense(expense.id))}
                 data-testid="edit-btn"
@@ -55,7 +56,7 @@ function Table() {
                 Edit
               </button>
               <button
-                className=""
+                className="bg-white hover:bg-[#FFD700] rounded-lg lg:p-2 px-[10px] lg:ml-[5px] text-black text-[13px]"
                 type="button"
                 onClick={() => dispatch(deleteExpense(expense.id))}
                 data-testid="delete-btn"

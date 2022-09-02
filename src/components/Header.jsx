@@ -15,7 +15,7 @@ function Header() {
   }, 0);
 
   return (
-    <header className="flex place-content-between px-5 h-[3rem] text-[#c39f03] font-bold">
+    <header className="flex items-baseline place-content-between px-5 h-[3.5rem] h-[3rem] text-[#FFD700] bg-[#16140E] font-bold">
       <p className="mt-3 tracking-wide">{email}</p>
       <div className="flex mt-3 tracking-wide">
         <p className="flex mr-1">{totalExpenses.toFixed(2)}</p>
