@@ -6,7 +6,9 @@ const URL = 'https://economia.awesomeapi.com.br/json/all';
 const initialState = {
   currencies: [],
   expenses: [],
+  expenseId: 0,
   isLoading: true,
+  isEdit: false,
 };
 
 export const getExchangeRates = createAsyncThunk(
@@ -45,12 +47,18 @@ const walletSlice = createSlice({
   name: 'wallet',
   initialState,
   reducers: {
-    saveExpense: (state, action) => {
-      console.log('saveExpense');
-      state.expenses.push(action.payload);
+    updateExpense: (state, action) => {
+      state.expenses = [...state.expenses];
+      state.expenseId = action.payload;
+      state.isEdit = true;
     },
-    updateExpense: (state, action) => {},
-    deleteExpense: (state, action) => {},
+    deleteExpense: (state, action) => {
+      state.expenses = state.expenses.filter(({ id }) => id !== action.payload);
+    },
+    submitUpdates: (state, action) => {
+      state.expenses = [...action.payload];
+      state.isEdit = false;
+    },
   },
   extraReducers: {
     [getExchangeRates.pending]: (state) => {
@@ -67,8 +75,6 @@ const walletSlice = createSlice({
       state.isLoading = true;
     },
     [getUpdatedExchangeRates.fulfilled]: (state, action) => {
-      console.log(action.payload);
-      console.log('caí aqui');
       state.expenses = [...state.expenses, action.payload];
       state.isLoading = false;
     },
@@ -78,6 +84,5 @@ const walletSlice = createSlice({
   },
 });
 
-export const { saveExpense, updateExpense, deleteExpense } =
-  walletSlice.actions;
+export const { saveExpense, updateExpense, deleteExpense, submitUpdates } = walletSlice.actions;
 export default walletSlice.reducer;

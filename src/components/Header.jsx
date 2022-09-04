@@ -15,7 +15,7 @@ function Header() {
   }, 0);
 
   return (
-    <header>
+    <header className="flex">
       <p>{email}</p>
       <p>{totalExpenses.toFixed(2)}</p>
       <p>BRL</p>
