@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { saveEmail } from '../redux/slices/userSlice';
@@ -10,13 +10,19 @@ function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+    const validEmail = emailPattern.test(email);
+    if (validEmail && password.length > 5) {
+      setIsDisabled(false);
+    } else {
+      setIsDisabled(true);
+    }
+  }, [email, password]);
+
   const handleInput = ({ target }) => {
     if (target.name === 'email') setEmail(target.value);
     if (target.name === 'password') setPassword(target.value);
-    const emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-    const validEmail = emailPattern.test(email);
-    const validPassword = password.length > 5;
-    if (validEmail && validPassword) setIsDisabled(false);
   };
 
   const handleSubmit = (e) => {
@@ -36,7 +42,7 @@ function Login() {
           <label className="mt-3" htmlFor="password">
             <input className="p-[0.5rem] rounded-md placeholder-gray-700" name="password" type="password" placeholder="Provide your password" value={password} onChange={handleInput} />
           </label>
-          <button className="text-white mt-5 font-medium text-xl hover:bg-gray-500 disabled:opacity-50 rounded-md p-1 bg-gray-400" name="login" type="submit" disabled={isDisabled}>Log in</button>
+          <button className="text-white mt-5 font-medium text-xl enabled:hover:bg-gray-500 disabled:opacity-50 rounded-md p-1 bg-gray-400" name="login" type="submit" disabled={isDisabled}>Log in</button>
         </form>
       </div>
     </div>
@@ -44,4 +50,3 @@ function Login() {
 }
 
 export default Login;
-// backdrop-filter backdrop-grayscale backdrop-blur-md backdrop-contrast-200 #2596be

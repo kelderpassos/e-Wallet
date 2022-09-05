@@ -4,7 +4,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { getExchangeRates, getUpdatedExchangeRates, submitUpdates } from '../redux/slices/walletSlice';
 import Header from '../components/Header';
 import Table from '../components/Table';
-import Loading from '../components/Loading';
 
 const initialState = {
   id: '',
@@ -18,7 +17,7 @@ const initialState = {
 function Wallet() {
   const [expense, setExpense] = useState(initialState);
   const {
-    currencies, isLoading, expenses, isEdit, expenseId,
+    currencies, expenses, isEdit, expenseId,
   } = useSelector(({ wallet }) => wallet);
   const dispatch = useDispatch();
 
@@ -49,93 +48,99 @@ function Wallet() {
   };
 
   return (
-    <div className="bg-[#292d33] h-screen">
-      <div className="bg-[#0a0a0a] text-[#c39f03]">
-        <Header />
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="value">
-            {' '}
-            Value
-            <input
-              name="value"
-              type="text"
-              placeholder="amount"
-              value={expense.value}
-              onChange={handleInput}
-            />
-          </label>
-          <label htmlFor="description">
-            {' '}
-            Description
-            <input
-              name="description"
-              type="text"
-              placeholder="product"
-              value={expense.description}
-              onChange={handleInput}
-            />
-          </label>
-          <label htmlFor="currency">
-            Currency:
-            <select
-              value={expense.currency}
-              name="currency"
-              onChange={handleInput}
-            >
-              {currencies.map((currency) => (
-                <option key={uuidv4()}>{ currency }</option>
-              ))}
-            </select>
-          </label>
-          <label htmlFor="method">
-            Payment Method
-            <select
-              name="method"
-              onChange={handleInput}
-            >
-              <option>Cash</option>
-              <option>Credit card</option>
-              <option>Debit card</option>
-            </select>
-          </label>
-          <label htmlFor="category">
-            Category
-            <select
-              name="category"
-              type="dropdown"
-              onChange={handleInput}
-            >
-              <option>Food</option>
-              <option>Leisure</option>
-              <option>Work</option>
-              <option>Transportation</option>
-              <option>Health</option>
-            </select>
-          </label>
-        </form>
+    <div className="h-screen">
+      <Header />
+      <form className="flex bg-[#2C292A] border lg:justify-between items-center px-3 py-3 h-[4rem] " onSubmit={handleSubmit}>
+        <label htmlFor="value" className="tracking-wide text-[#e7ebef]">
+          {' '}
+          Value
+          <input
+            className="ml-2 w-32 text-center text-black rounded-md focus:placeholder-transparent placeholder-black bg-[#f4f1f1]"
+            name="value"
+            type="number"
+            placeholder="amount"
+            value={expense.value}
+            onChange={handleInput}
+          />
+        </label>
+        <label htmlFor="currency" className="ml-2 tracking-wide text-[#e7ebef]">
+          Currency:
+          <select
+            className="ml-2 md:w-20 text-[#0a0a0a] rounded-md text-center bg-[#f4f1f1] p-1"
+            value={expense.currency}
+            name="currency"
+            onChange={handleInput}
+          >
+            {currencies.map((currency) => (
+              <option key={uuidv4()}>{ currency }</option>
+            ))}
+          </select>
+        </label>
+        <label htmlFor="method" className="ml-2 tracking-wide text-[#e7ebef]">
+          Payment Method
+          <select
+            className="ml-2  text-[#0a0a0a] rounded-md text-center bg-[#f4f1f1] p-1 "
+            name="method"
+            onChange={handleInput}
+          >
+            <option>Cash</option>
+            <option>Credit card</option>
+            <option>Debit card</option>
+          </select>
+        </label>
+        <label htmlFor="category" className="ml-2 tracking-wide text-[#e7ebef]">
+          Category
+          <select
+            className="ml-2 md:w-[8rem] text-[#0a0a0a] rounded-md text-center bg-[#f4f1f1] p-1"
+            name="category"
+            type="dropdown"
+            onChange={handleInput}
+          >
+            <option>Clothing</option>
+            <option>Food</option>
+            <option>Gadgets</option>
+            <option>Health</option>
+            <option>Leisure</option>
+            <option>Transportation</option>
+            <option>Work</option>
+          </select>
+        </label>
+        <label htmlFor="description" className="ml-2 tracking-wide text-[#e7ebef]">
+          {' '}
+          Description
+          <input
+            className="ml-2 w-32 text-center text-black rounded-md focus:placeholder-transparent placeholder-black bg-[#f4f1f1]"
+            name="description"
+            type="text"
+            placeholder="product"
+            value={expense.description}
+            onChange={handleInput}
+          />
+        </label>
         { !isEdit ? (
           <button
+            className="bg-white hover:bg-[#FFD700] rounded-xl lg:py-2 lg:px-3 p-1 text-black text-[14px]"
             type="button"
             name="expensesBtn"
             onClick={handleSubmit}
           >
-            Adicionar despesa
+            Add Expense
           </button>
         ) : (
           <button
+            className="bg-white hover:bg-[#FFD700] rounded-xl lg:py-2 lg:px-3 p-1 text-black text-[14px]"
             type="button"
+            name="editBtn"
             onClick={handleEdit}
           >
-            Editar despesa
+            Edit Expense
           </button>
         )}
-        {isLoading ? <Loading />
-          : (
-            <main>
-              <Table />
-            </main>
-          )}
-      </div>
+      </form>
+      <main className="bg-[#181410] h-screen">
+        <h1 className="flex justify-center items-center h-[2.5rem] font-bold text-[18px] text-[#FFD700]">Transactions</h1>
+        <Table />
+      </main>
     </div>
   );
 }

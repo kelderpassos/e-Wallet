@@ -84,5 +84,7 @@ const walletSlice = createSlice({
   },
 });
 
-export const { saveExpense, updateExpense, deleteExpense, submitUpdates } = walletSlice.actions;
+export const {
+  saveExpense, updateExpense, deleteExpense, submitUpdates,
+} = walletSlice.actions;
 export default walletSlice.reducer;
