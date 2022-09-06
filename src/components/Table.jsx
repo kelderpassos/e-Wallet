@@ -11,7 +11,7 @@ function Table() {
       <thead className="h-[3.5rem] -mt-5">
         <tr className="">
           <th className="w-[100px]">Description</th>
-          <th className="w-[100px]">Tag</th>
+          <th className="w-[100px]">Category</th>
           <th className="w-[100px]">Payment Method</th>
           <th className="w-[100px]">Value</th>
           <th className="w-[100px]">Currency</th>
@@ -26,7 +26,7 @@ function Table() {
           <div className="border-none mt-3" />
           <tr className="border-2 border-[#FFD700] h-[4rem] ">
             <td className="">{expense.description}</td>
-            <td className="">{expense.tag}</td>
+            <td className="">{expense.category}</td>
             <td className="">{expense.method}</td>
             <td className="">{Number(expense.value).toFixed(2)}</td>
             <td className="">
@@ -50,7 +50,7 @@ function Table() {
               <button
                 className="bg-white hover:bg-[#FFD700] rounded-lg lg:p-2 px-[23px] text-black text-[13px]"
                 type="button"
-                onClick={() => dispatch(updateExpense(expense.id))}
+                onClick={() => dispatch(updateExpense(expense))}
                 data-testid="edit-btn"
               >
                 Edit

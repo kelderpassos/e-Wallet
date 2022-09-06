@@ -9,6 +9,7 @@ const initialState = {
   expenseId: 0,
   isLoading: true,
   isEdit: false,
+  expenseToBeUpdated: {},
 };
 
 export const getExchangeRates = createAsyncThunk(
@@ -49,14 +50,17 @@ const walletSlice = createSlice({
   reducers: {
     updateExpense: (state, action) => {
       state.expenses = [...state.expenses];
-      state.expenseId = action.payload;
+      state.expenseToBeUpdated = action.payload;
+      state.expenseId = action.payload.id;
       state.isEdit = true;
     },
     deleteExpense: (state, action) => {
       state.expenses = state.expenses.filter(({ id }) => id !== action.payload);
     },
     submitUpdates: (state, action) => {
-      state.expenses = [...action.payload];
+      const substituteExpense = state.expenses
+        .filter((expense) => expense.id !== action.payload.id);
+      state.expenses = [...substituteExpense, action.payload];
       state.isEdit = false;
     },
   },
