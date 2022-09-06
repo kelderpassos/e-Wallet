@@ -11,13 +11,14 @@ const initialState = {
   description: '',
   currency: 'USD',
   method: 'Cash',
-  tag: 'Food',
+  category: 'Clothing',
 };
 
 function Wallet() {
   const [expense, setExpense] = useState(initialState);
+  const [updatesOnExpense, setUpdatesOnExpense] = useState({});
   const {
-    currencies, expenses, isEdit, expenseId,
+    currencies, expenses, isEdit, expenseId, expenseToBeUpdated,
   } = useSelector(({ wallet }) => wallet);
   const dispatch = useDispatch();
 
@@ -27,6 +28,7 @@ function Wallet() {
 
   const handleInput = ({ target: { name, value } }) => {
     setExpense((prevState) => ({ ...prevState, id: uuidv4(), [name]: value }));
+    setUpdatesOnExpense({ ...expenseToBeUpdated, [name]: value });
   };
 
   const handleSubmit = (e) => {
@@ -37,13 +39,7 @@ function Wallet() {
 
   const handleEdit = (e) => {
     e.preventDefault();
-    const editions = expenses.map((prevExpense) => {
-      if (expenseId === prevExpense.id) {
-        return { ...expense, exchangeRates: prevExpense.exchangeRates };
-      }
-      return prevExpense;
-    });
-    dispatch(submitUpdates(editions));
+    dispatch(submitUpdates(updatesOnExpense));
     setExpense(() => ({ ...initialState, value: '', description: '' }));
   };
 
