@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        loginBg: "url('./src/assets/gilles-lambert-pb_lF8VWaPU-unsplash.jpg')",
+        loginBg: "url('./src/images/gilles-lambert-pb_lF8VWaPU-unsplash.jpg')",
       },
     },
   },
