@@ -33,7 +33,7 @@ function Login() {
 
   return (
     <div className="bg-loginBg bg-cover bg-no-repeat h-screen flex flex-col items-center justify-center">
-      <div className="border-[1px] border-[#8f94a8] rounded-2xl bg-[#1c1713]/[0.50] bg-clip-padding h-[20rem] w-[30rem] flex flex-col items-center justify-center backdrop-filter backdrop-grayscale backdrop-blur-sm ">
+      <div className="border-[1px] border-[#8f94a8] rounded-2xl bg-[#1c1713]/[0.50] bg-clip-padding h-[20rem] w-[30rem] flex flex-col items-center justify-center backdrop-filter backdrop-grayscale backdrop-blur-sm">
         <h1 className="text-gray-400 tracking-wide text-4xl prose prose-stone">E-Wallet</h1>
         <form className="bg- p-5 flex flex-col " onSubmit={handleSubmit}>
           <label htmlFor="email">
