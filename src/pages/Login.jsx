@@ -34,7 +34,7 @@ function Login() {
 
   return (
     <div style={{ backgroundImage: `url(${backgroundCover})` }} className="bg-cover bg-no-repeat h-screen flex flex-col items-center justify-center">
-      <div className="border-[1px] border-[#8f94a8] rounded-2xl bg-[#1c1713]/[0.50] bg-clip-padding h-[20rem] w-[30rem] flex flex-col items-center justify-center backdrop-filter backdrop-grayscale backdrop-blur-sm">
+      <section className="border-[1px] border-[#8f94a8] rounded-2xl bg-[#1c1713]/[0.50] bg-clip-padding h-[20rem] w-[30rem] flex flex-col items-center justify-center backdrop-filter backdrop-grayscale backdrop-blur-sm">
         <h1 className="text-gray-400 tracking-wide text-4xl prose prose-stone">E-Wallet</h1>
         <form className="bg- p-5 flex flex-col " onSubmit={handleSubmit}>
           <label htmlFor="email">
@@ -45,7 +45,7 @@ function Login() {
           </label>
           <button className="text-white mt-5 font-medium text-xl enabled:hover:bg-gray-500 disabled:opacity-50 rounded-md p-1 bg-gray-400" name="login" type="submit" disabled={isDisabled}>Log in</button>
         </form>
-      </div>
+      </section>
     </div>
   );
 }
